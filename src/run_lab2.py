@@ -1,9 +1,15 @@
+import os
+import json
+import matplotlib.pyplot as plt
 from spatial import Point, PointSet
 
 # ---------------------
 # Paths
 # ---------------------
 DATA_PATH = "data/points.csv"
+OUTPUT_DIR = "output"
+SUMMARY_PATH = os.path.join(OUTPUT_DIR, "lab2_report.json")
+PLOT_PATH = os.path.join(OUTPUT_DIR, "lab2_preview.png")
 
 # ---------------------
 # Tests for Point class
@@ -62,3 +68,31 @@ print(point_set.bbox())
 new_point_set = point_set.filter_by_tag("poi")
 for point in new_point_set.points:
     print(point.id, point.lon, point.lat, point.name, point.tag)
+
+# ----------------------------
+# Visualization and Reporting
+# ----------------------------
+point_set = PointSet.from_csv(DATA_PATH)
+poi_set = point_set.filter_by_tag("poi")
+bbox = point_set.bbox()
+count = point_set.count()
+
+point_lons = [point.lon for point in point_set.points]
+point_lats = [point.lat for point in point_set.points]
+poi_lons = [poi.lon for poi in poi_set.points]
+poi_lats = [poi.lat for poi in poi_set.points]
+
+plt.figure()
+if count == 0:
+    plt.title("Preview Plot (No valid coordinates to plot)")
+else:
+    plt.scatter(point_lons, point_lats, c="blue")
+    plt.scatter(poi_lons, poi_lats, c="red")
+    plt.title("PointSet Preview (blue = all points; red = POIs)")
+    plt.xlabel("Longitude")
+    plt.ylabel("Latitude")
+
+plt.savefig(PLOT_PATH, dpi=150, bbox_inches="tight")
+plt.close()
+
+print(f"Saved scatter plot to: {PLOT_PATH}")
