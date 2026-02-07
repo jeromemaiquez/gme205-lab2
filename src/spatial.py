@@ -33,6 +33,8 @@ class Point:
     # Static methods (pure saptial math)
     # ----------------------------------------------------
 
+    # Think: uses distance_to() method to interface w/ other objects
+    # ...WHILE haversine_m contains underlying spatial logic
     @staticmethod
     def haversine_m(lon1: float, lat1: float, lon2: float, lat2: float) -> float:
         """
@@ -57,3 +59,18 @@ class Point:
         c = 2 * math.atan2(math.sqrt(a), math.sqrt(1 - a))
 
         return R * c
+    
+    # ---------------------------------------------------
+    # Class method (constructing objects from data)
+    # ---------------------------------------------------
+
+    # Allows construction from CSV rows, dictionaries, DB records, etc.
+    @classmethod
+    def from_row(cls, row):
+        return cls(
+            id=str(row["id"]),
+            lon=float(row["lon"]),
+            lat=float(row["lat"]),
+            name=row.get("name"),
+            tag=row.get("tag")
+        )
