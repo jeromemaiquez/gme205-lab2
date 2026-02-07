@@ -1,5 +1,6 @@
 class Point:
-    def __init__(self, id, lon, lat):
+    def __init__(self, id, lon, lat, name=None, tag=None):
+        # Validation must happen INSIDE the object, not outside
         if not (-180 <= lon <= 180):
             raise ValueError("Longitude must be between -180 and 180")
         if not (-90 <= lat <= 90):
@@ -8,3 +9,5 @@ class Point:
         self.id = id
         self.lon = lon
         self.lat = lat
+        self.name = name
+        self.tag = tag
