@@ -72,6 +72,8 @@ for point in new_point_set.points:
 # ----------------------------
 # Visualization and Reporting
 # ----------------------------
+
+# Visualization of PointSet
 point_set = PointSet.from_csv(DATA_PATH)
 poi_set = point_set.filter_by_tag("poi")
 bbox = point_set.bbox()
@@ -96,3 +98,23 @@ plt.savefig(PLOT_PATH, dpi=150, bbox_inches="tight")
 plt.close()
 
 print(f"Saved scatter plot to: {PLOT_PATH}")
+
+# Reporting of PointSet
+
+unique_tags = set([point.tag for point in point_set.points])
+
+count_per_tag = {}
+
+for tag in unique_tags:
+    count_per_tag[tag] = point_set.filter_by_tag(tag).count()
+
+summary = {
+    "count": count,
+    "bbox": bbox,
+    "count_per_tag": count_per_tag
+}
+
+with open(SUMMARY_PATH, "w", encoding="utf-8") as f:
+    json.dump(summary, f, indent=2)
+
+print(f"\nSaved summary to: {SUMMARY_PATH}")
