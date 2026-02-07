@@ -83,3 +83,14 @@ class Point:
 class PointSet:
     def __init__(self, points: list[Point]):
         self.points = points
+    
+    @classmethod
+    def from_csv(cls, path):
+        points = []
+
+        df = pd.read_csv(path)
+        for _, row in df.iterrows():
+            point = Point.from_row(row)
+            points.append(point)
+        
+        return cls(points)

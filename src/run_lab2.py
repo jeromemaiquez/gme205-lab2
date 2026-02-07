@@ -1,5 +1,14 @@
 from spatial import Point, PointSet
 
+# ---------------------
+# Paths
+# ---------------------
+DATA_PATH = "data/points.csv"
+
+# ---------------------
+# Tests for Point class
+# ---------------------
+
 p = Point("A", 121.0, 14.6)
 print(p.id, p.lon, p.lat)
 print(p.to_tuple())
@@ -23,5 +32,18 @@ u = PointSet([p, r, t])
 for point in u.points:
     print(point.id, point.lon, point.lat)
 
-q = Point("X", 999, 14)
-print(q.id, q.lon, q.lat)
+# Test for validity check
+# Commented out to allow script to run
+# q = Point("X", 999, 14)
+# print(q.id, q.lon, q.lat)
+
+# --------------------------
+# Tests for PointSet class
+# --------------------------
+
+point_set = PointSet.from_csv(DATA_PATH)
+print(type(point_set))
+
+print("Points inside PointSet")
+for point in point_set.points:
+    print(point.id, point.lon, point.lat, point.name, point.tag)
