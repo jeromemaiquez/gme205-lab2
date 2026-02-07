@@ -84,6 +84,10 @@ class PointSet:
     def __init__(self, points: list[Point]):
         self.points = points
     
+    # -------------------------------
+    # Class methods
+    # -------------------------------
+
     @classmethod
     def from_csv(cls, path):
         points = []
@@ -94,3 +98,24 @@ class PointSet:
             points.append(point)
         
         return cls(points)
+    
+    # -----------------------
+    # Instance methods
+    # ----------------------
+
+    def count(self):
+        return len(self.points)
+    
+    def bbox(self):
+        lons = []
+        lats = []
+
+        for point in self.points:
+            lons.append(point.lon)
+            lats.append(point.lat)
+        
+        return (min(lons), min(lats), max(lons), max(lats))
+    
+    def filter_by_tag(self, tag):
+        filtered_pointset = [point for point in self.points if point.tag == tag]
+        return PointSet(filtered_pointset)
