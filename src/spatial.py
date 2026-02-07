@@ -28,6 +28,9 @@ class Point:
     
     def distance_to(self, other):
         return Point.haversine_m(self.lon, self.lat, other.lon, other.lat)
+    
+    def is_poi(self):
+        return (self.tag or "").lower() == "poi"
 
     # ----------------------------------------------------
     # Static methods (pure saptial math)
