@@ -9,5 +9,17 @@ class Point:
         self.id = id
         self.lon = lon
         self.lat = lat
+        
+        # Allows the point geometry to represent a POI
         self.name = name
         self.tag = tag
+
+    # ---------------------------------------------------
+    # Instance methods (behavior belonging to the object)
+    # ---------------------------------------------------
+
+    def to_tuple(self) -> tuple[float, float]:
+        """
+        Return the coordinate as a (lon, lat) tuple.
+        """
+        return (self.lon, self.lat)
