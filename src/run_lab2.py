@@ -1,4 +1,4 @@
-from spatial import Point
+from spatial import Point, PointSet
 
 p = Point("A", 121.0, 14.6)
 print(p.id, p.lon, p.lat)
@@ -18,6 +18,10 @@ s = {
 }
 t = Point.from_row(s)
 print(t.id, t.lon, t.lat, t.name, t.tag)
+
+u = PointSet([p, r, t])
+for point in u.points:
+    print(point.id, point.lon, point.lat)
 
 q = Point("X", 999, 14)
 print(q.id, q.lon, q.lat)

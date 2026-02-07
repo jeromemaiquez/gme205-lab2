@@ -1,3 +1,4 @@
+# Deprecated; script moved to run_lab2.py
 from spatial import Point
 
 p = Point("A", 121.0, 14.6)

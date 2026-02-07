@@ -1,4 +1,5 @@
 import math
+import pandas as pd
 
 class Point:
     def __init__(self, id, lon, lat, name=None, tag=None):
@@ -77,3 +78,8 @@ class Point:
             name=row.get("name"),
             tag=row.get("tag")
         )
+    
+
+class PointSet:
+    def __init__(self, points: list[Point]):
+        self.points = points
